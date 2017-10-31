@@ -103,8 +103,45 @@ public class Colosseum {
      *         <p>
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        Pokemon tempPokemon = new Pokemon();
+        Scanner sc = new Scanner(System.in);
+
+        int input = 0;
+        while (input != 1 && input != 2 && input != 3) {
+            System.out.println("Select from the following Pokemon Types");
+            System.out.println("1 - Electric");
+            System.out.println("2 - Fire");
+            System.out.println("3 - Water");
+            input = sc.nextInt();
+        }
+
+        if (input == 1) {
+            tempPokemon = new ElectricPokemon();
+        }
+        if (input == 2) {
+            tempPokemon = new FirePokemon();
+        }
+        if (input == 3) {
+            tempPokemon = new WaterPokemon();
+        }
+
+        System.out.println("Please name your Pokemon:");
+        tempPokemon.setName(sc.next());
+
+        while (tempPokemon.getHitPoints() > 50 || tempPokemon.getHitPoints() < 1) {
+            System.out.println("How many hit points will it have? (1-50)");
+            tempPokemon.setHitPoints(sc.nextInt());
+        }
+        while (tempPokemon.getAttackLevel() > 49 || tempPokemon.getAttackLevel() < 1) {
+            System.out.println("How many attack points will it have? (1-49)");
+            tempPokemon.setAttackLevel(sc.nextInt());
+        }
+        int remainingPoints = 50 - tempPokemon.getAttackLevel();
+        while (tempPokemon.getDefenseLevel() > remainingPoints || tempPokemon.getDefenseLevel() < 1) {
+            System.out.println("How many defense points will it have? (1-" + remainingPoints + ")");
+            tempPokemon.setDefenseLevel(sc.nextInt());
+        }
+        return tempPokemon;
     }
 
     /**
